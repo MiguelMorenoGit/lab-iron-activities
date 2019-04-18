@@ -1,29 +1,18 @@
 import React, { Component } from 'react';
-import GetActivities from '../services/GetActivities';
+import { mainContext } from '../App';
 
 class Activities extends Component {
 
-  state = {
-    dataActivities:[],
-    status:"isLoading",
-    itemsPerPage:18,
-    offset:1
-  }
 
-  componentDidMount(){
-    GetActivities(({data})=>{
-      this.setState({
-        dataActivities:data,
-        status:'isLoaded'
-      })
-    })
-  }
   render() {
-    const {dataActivities} = this.state
+    
     return (
       <div>
-        welcome to Museums miguel 
-        {dataActivities}
+        <mainContext.Consumer> 
+          {(context) => {
+            return context.listActivities()
+          }}
+        </mainContext.Consumer>
       </div>
     );
   }
