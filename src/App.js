@@ -34,8 +34,10 @@ class App extends Component {
     itemsPerPage:18,
     offset:1,
     totalPrice:0,
-    favoritos : 0,
-    carrito : []
+    favoritos : [],
+    nFavoritos: 0,
+    carrito : [],
+    nCarrito : 0,
   };
 
   // funcion que se ejecutara cuando se monte el componente
@@ -46,13 +48,14 @@ class App extends Component {
     axios.get(`https://api.musement.com/api/v3/venues/164/activities?limit=${itemsPerPage}&offset=${offset}`)
 
     .then(({data}) => {
-      console.log(data)
+      // console.log(data)
       this.setState({
         dataActivities:data,
         dataLoad: "true"
       })
     })
     .catch(err => console.log(err))
+    
   }
 
 
@@ -61,30 +64,41 @@ class App extends Component {
   }
 
   addActivity = (id) => {
+    // get tour that matches id
     const activity = this.state.dataActivities.filter(activity => activity.uuid === id)
 
     this.setState({
-      totalPrice: this.state.totalPrice + activity[0].retail_price.value
+      //update state with new tour and add price to total
+      totalPrice: this.state.totalPrice + activity[0].retail_price.value,
+      carrito: [...this.state.carrito, activity[0]],
     })
+
   }
 
   removeActivity = (id) => {
-    const activity = this.state.dataActivities.filter(activity => activity.uuid === id)
+    //get removed tour for get price
+    const removed = this.state.dataActivities.filter(activity => activity.uuid === id)
+
+    //get car list without tour.id, it is the new list.
+    const carrito = this.state.carrito.filter(activity => activity.uuid !== id)
 
     this.setState({
-      totalPrice: this.state.totalPrice - activity[0].retail_price.value
+      carrito,
+      totalPrice: this.state.totalPrice - removed[0].retail_price.value,
     })
   }
 
 
-
+  consoleLog = () => {
+    console.log(this.state.carrito, this.state.carrito.length)
+  }
 
   render() {
     
     return (
       <div>
         <navbarContext.Provider value = {{totalPrice:this.state.totalPrice, addActivity:this.addActivity, removeActivity:this.removeActivity}}>
-          <Navbar totalPrice={this.state.totalPrice}/>
+          <Navbar totalPrice={this.state.totalPrice} carrito={this.state.carrito}/>
           <Router>
             <Switch>
               <mainContext.Provider value={{ listActivities: this.listActivities, state:this.state}}>
@@ -95,6 +109,7 @@ class App extends Component {
             </Switch>
           </Router>
         </navbarContext.Provider>
+        {this.consoleLog()}
       </div>
     );
   }
