@@ -134,10 +134,25 @@ p {
   background-color: grey;
 }
 
-/* ---- carrito pop-up---- */
+/* ---- NavBar---- */
 
-.carrito-pop-up {
+.carrito-dropdown {
   background-color: blue;
+}
+
+#navbar {
+  width:100%;
+  height:auto;
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-content: center;
+  background-color:whitesmoke;
+  border-bottom: 1px solid grey;
+}
+
+#navbar p {
+  margin: 5px 20px 5px 20px;
 }
 
 #navbar .number-circle{
@@ -146,6 +161,14 @@ p {
   background-color: red;
   color:white;
   font-weight: bolder;
+}
+
+#navbar .dropdown{
+  width:200px;
+  height:100px;
+  position:relative;
+  z-index: 1000;
+  background-color: blue;
 }
 
 /* ---- section ---- */

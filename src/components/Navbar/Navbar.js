@@ -2,11 +2,17 @@ import React, { Component } from 'react';
 
 class Navbar extends Component {
 
+  state = {
+    isClicked:"false"
+  }
+
   onClick = () =>{
-    console.log("hello world")
-      return  <div className="carrito-pop-up">
-                <p>hello world</p>
-              </div>
+    this.setState({
+      isClicked:"true"
+    })
+    setTimeout(function(){
+      this.setState({isClicked:"false"});
+    }.bind(this),3000)
 
       
         
@@ -19,7 +25,7 @@ class Navbar extends Component {
             <p>Carrito {this.props.carrito.length > 0 
                       ? <sup className="number-circle">{this.props.carrito.length}</sup>  
                       : "" }</p>
-                    
+            <div>{this.state.isClicked==="true" ? <div className="dropdown"><p>carrito is here!</p></div> : <div></div>}</div>
           </div>
       </div>
     );
