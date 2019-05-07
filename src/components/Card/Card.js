@@ -15,11 +15,6 @@ class Card extends Component {
     : this.setState ({isClicked : true})
   }
 
-  kaka = () => {
-   console.log("jajajaja")
-  }
-
-
   render() {
 
     let label = "Add to Card";
@@ -38,10 +33,13 @@ class Card extends Component {
           <p className="card-content">{activity.description}</p>
           <navbarContext.Consumer>
             {(context => {
-              return <button  onClick={()=>{this.onClick(); 
+              return <button  onClick={ () => {
+                this.onClick(); 
                 (!this.state.isClicked) ? context.addActivity(activity.uuid)
-                :context.removeActivity(activity.uuid)}}  
-                className={`card-car-button ${classClicked}`}>{label}</button>
+                :context.removeActivity(activity.uuid)
+                }}  
+                className={`card-car-button ${classClicked}`}
+                >{label}</button>
             })}
           </navbarContext.Consumer>
             

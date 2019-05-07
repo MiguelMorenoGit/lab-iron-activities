@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CartCard from './Cart/CartCard';
 
 class Navbar extends Component {
 
@@ -6,28 +7,25 @@ class Navbar extends Component {
     isClicked:"false"
   }
 
-  onClick = () =>{
-    this.setState({
-      isClicked:"true"
-    })
-    setTimeout(function(){
-      this.setState({isClicked:"false"});
-    }.bind(this),3000)
 
-      
-        
-  }
+
+
   render() {
     return (
-      <div id="navbar">
-          <p>{this.props.totalPrice} Libras</p>
-          <div onClick={this.onClick} >
-            <p>Carrito {this.props.carrito.length > 0 
-                      ? <sup className="number-circle">{this.props.carrito.length}</sup>  
-                      : "" }</p>
-            <div>{this.state.isClicked==="true" ? <div className="dropdown"><p>carrito is here!</p></div> : <div></div>}</div>
-          </div>
+    <div id="navbar">
+      <p>{this.props.totalPrice} Libras</p>
+      <div className="dropdown" >
+        <p>Carrito {this.props.carrito.length > 0 
+                  ? <sup className="number-circle">{this.props.carrito.length}</sup>  
+                  : "" }</p>
+        <div className="dropdown-content">
+          <ul>
+            {this.props.carrito.map(activity=> <CartCard activity = {activity}/> )}
+          </ul>
+        </div>
       </div>
+    </div>
+        
     );
   }
 }

@@ -127,6 +127,7 @@ p {
   border:1px solid black;
   color:black;
   background-color: white;
+  margin-top:15px;
 }
 
 .clicked {
@@ -148,7 +149,7 @@ p {
   justify-content: flex-end;
   align-content: center;
   background-color:whitesmoke;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid orange
 }
 
 #navbar p {
@@ -163,14 +164,51 @@ p {
   font-weight: bolder;
 }
 
-#navbar .dropdown{
-  width:200px;
-  height:100px;
-  position:relative;
-  z-index: 1000;
-  background-color: blue;
+/* ---- DROPDOWN ---- */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
 }
 
+.dropdown-content {
+  display: none;
+  position: absolute;
+  width:50vw;
+  background-color: #f9f9f9;
+  right: 20px; 
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 10px 0;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content ul{
+  margin:10px 0;
+}
+.dropdown-content li {
+  margin:10px 0;
+}
+
+/* ---- CartCard ---- */
+
+.cart-card-container {
+  width:100%;
+  height: auto;
+  display:flex;
+  flex-direction: row;
+}
+
+.cart-card-image {
+  width: 10vw;
+  height: 10vh;
+}
+
+/* ---- NavBar ---- */
+/* ---------------------------------------------- */
 /* ---- section ---- */
 
 
