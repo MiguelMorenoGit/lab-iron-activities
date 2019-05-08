@@ -19,9 +19,11 @@ class Navbar extends Component {
                   ? <sup className="number-circle">{this.props.carrito.length}</sup>  
                   : "" }</p>
         <div className="dropdown-content">
+          {this.props.carrito.length === 0 ? <p>Cart is empty</p> :
           <ul>
-            {this.props.carrito.map(activity=> <CartCard activity = {activity}/> )}
+            {this.props.carrito.map(activity=> <CartCard key={activity.uuid} activity = {activity}/> )}
           </ul>
+          }
         </div>
       </div>
     </div>
