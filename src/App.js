@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 // import { MDBContainer } from "mdbreact"
 import './stylesheets/App.css';
+// import FontAwesome
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faEnvelope, faKey, faShoppingCart, faPoundSign, faStar} from '@fortawesome/free-solid-svg-icons';
 
 // nos importamos las rutas
 import Activities from './pages/Activities';
@@ -26,6 +29,10 @@ export const mainContext = React.createContext("test");
 export const navbarContext = React.createContext("text");
 // const detailContext = React.createContext();
 
+
+// here we add all the icons from FontAwesome
+library.add(faEnvelope, faKey, faShoppingCart, faPoundSign, faStar);
+
 class App extends Component {
   //ponemos el estado inicial del componente
   state = {
@@ -34,7 +41,7 @@ class App extends Component {
     itemsPerPage:18,
     offset:1,
     totalPrice:0,
-    favoritos : [],
+    favorites : [],
     nFavoritos: 0,
     carrito : [],
     nCarrito : 0,
@@ -88,6 +95,25 @@ class App extends Component {
     })
   }
 
+  addFavorite = (id) => {
+    // get tour that matches id
+    const activity = this.state.dataActivities.filter(activity => activity.uuid === id)
+
+    this.setState({
+      //update favorites array
+      favorites: [...this.state.favorites, activity[0]],
+    })
+  }
+
+  removeFavorite = (id) => {
+    //get car list without tour.id, it is the new list.
+    const favorites = this.state.favorites.filter(activity => activity.uuid !== id)
+
+    this.setState({
+      favorites,
+    })
+  }
+
 
   consoleLog = () => {
     console.log(this.state.carrito, this.state.carrito.length)
@@ -97,8 +123,8 @@ class App extends Component {
     
     return (
       <div>
-        <navbarContext.Provider value = {{totalPrice:this.state.totalPrice, addActivity:this.addActivity, removeActivity:this.removeActivity}}>
-          <Navbar totalPrice={this.state.totalPrice} carrito={this.state.carrito}/>
+        <navbarContext.Provider value = {{totalPrice:this.state.totalPrice, addActivity:this.addActivity, removeActivity:this.removeActivity, addFavorite:this.addFavorite, removeFavorite:this.removeFavorite}}>
+          <Navbar totalPrice={this.state.totalPrice}  carrito={this.state.carrito} favorites={this.state.favorites}/>
           <Router>
             <Switch>
               <mainContext.Provider value={{ listActivities: this.listActivities, state:this.state}}>
